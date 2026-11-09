@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTP | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/auth.css">
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p class="loader-message">Loading...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="logo-header">
+            <h1 class="title">Enter OTP</h1>
+            <p class="subtitle">Enter the 6-digit code sent to your institutional email address.</p>
+        </div>
+
+        <form id="otpForm">
+            <div class="otp-inputs" id="otpInputs">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+            </div>
+            
+            <div class="errorText" id="errorText" style="margin-bottom: 10px;"></div>
+
+            <button type="submit" id="verifyBtn">
+                <span>
+                    <span class="btn-text">Verify OTP</span> <span class="btn-icon"><i class="fas fa-check-circle"></i></span>
+                </span>
+            </button>
+
+            <div class="resend-container">
+                <button class="resend-btn" id="resendBtn">
+                    <i class="fas fa-redo"></i>
+                    Resend OTP
+                </button>
+                <span class="timer" id="timerText"></span>
+            </div>
+            
+        </form>
+        <button class="back-btn" id="backbtn">
+            Back to Login
+        </button>
+    </div>
+    
+    <div id="feedbackContainer"></div>
+
+    <script src="../../js/FeedbackModal.js"></script>
+    <script type="module" src="../../js/authJs/OTP.js"></script>
+</body>
+</html>

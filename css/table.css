@@ -1,0 +1,260 @@
+/* Table */
+table {
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    padding: 0.625rem 0.9rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    height: 44px;
+}
+
+th {
+    background: var(--white);
+    color: var(--primary-blue);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: .9rem;
+}
+
+td {
+    color: #333;
+    font-weight: 500;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #e9e9e9;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: capitalize;
+    display: inline-block;
+    width: max-content;
+}
+
+.status-badge.pending {
+    background-color: #fef3c7;
+    color: #d97706;
+    border: 1px solid #fcd34d;
+}
+
+.status-badge.approved {
+    background-color: #d1fae5;
+    color: #059669;
+    border: 1px solid #6ee7b7;
+}
+
+.status-badge.declined {
+    background-color: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fca5a5;
+}
+
+.status-badge.cancelled {
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border: 1px solid #d1d5db;
+}
+
+.status-badge.borrowed {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #7dd3fc;
+}
+
+.status-badge.returned {
+    background-color: #ccfbf1;
+    color: #0f766e;
+    border: 1px solid #5eead4;
+}
+
+.status-badge.removed {
+    background-color: #ccfbf1;
+    color: #0f766e;
+    border: 1px solid #5eead4;
+}
+
+.status-badge.expired {
+    background-color: #9aa0a0;
+    color: #031615;
+    border: 1px solid #0f1111;
+}
+
+.button:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+.editButton {
+    padding: .4rem .4rem;
+    background: none;
+    border: 2px solid #597bbb;
+    color: #1e3c72;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.editButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+}
+
+.reservationActions {
+    display: flex;
+    justify-content: center;
+    gap: .3rem;
+    flex-direction: column;
+}
+
+.actionButton {
+    padding: .4rem .2rem;
+    font-size: .8rem;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#declineBtn {
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: lightgray;
+}
+
+#declineBtn:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(185, 16, 16, 0.4);
+}
+
+#approveBtn {
+    background: linear-gradient(135deg, #0db67e, #07b981);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: lightgray;
+}
+
+#approveBtn:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+}
+
+#cancelBtn {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: lightgray;
+}
+
+#cancelBtn:hover {
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
+}
+
+#borrowBtn {
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: lightgray;
+}
+
+#borrowBtn:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(16, 16, 185, 0.4);
+}
+
+#returnBtn {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    outline: none;
+    color: lightgray;
+}
+
+#returnBtn:hover {
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(112, 16, 185, 0.4);
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    margin-top: 10px;
+}
+
+.pagination-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination-btn {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.pagination-btn.active {
+    background: var(--primary-blue);
+    color: white;
+    border-color: var(--primary-blue);
+}
+
+.pagination-btn:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    color: #ccc;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: #666;
+}

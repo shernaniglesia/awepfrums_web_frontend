@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Schedule | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/pages.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/modal.css">
+    <style>
+        #backButton {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: var(--light-bg);
+            border: 2px solid transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            transition: all 0.3s ease;
+        }
+
+        #backButton:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        th:nth-child(6) {
+            width: 120px;
+            text-align: center;
+        }
+        .sixthColumn{
+            width: 120px;
+            text-align: center;
+            padding: 0;
+        }
+        .days { 
+            display: flex; 
+            flex-wrap: wrap; 
+            margin-top: 7px; 
+        }
+        .day-btn { 
+            border: 1px solid #ccc; 
+            border-radius: 5px; 
+            padding: 10px; 
+            margin: 3px; 
+            cursor: pointer; 
+            width: 42px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .day-btn.selected { 
+            background: var(--primary-blue); 
+            color: white; 
+        }
+
+        @media (max-width: 768px) {
+            th:nth-child(1), td:nth-child(1) { 
+                display: table-cell;
+            }
+            th:nth-child(2),
+            th:nth-child(3),
+            th:nth-child(4),
+            th:nth-child(5){
+                display: none;
+            }
+
+            .data-cell {
+                white-space: normal;
+                line-height: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p id="loaderMessage" class="loader-message">Loading...</p>
+        </div>
+    </div>
+
+    <aside id="sidebar">
+        <nav>
+            <div class="navHeader">
+                <p class="navHeaderTitle">Admin Panel</p>
+                <button id="menuBtn" class="menuBtn">☰</button>
+            </div>
+            <a class="navLink" href="AdminDashboard.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a class="navLink" href="AdminManageUser.html"><i class="fas fa-users"></i>Users</a>
+            <a class="navLink" href="AdminManageRoom.html"><i class="fas fa-door-open"></i>Rooms</a>
+            <a class="navLink" href="AdminManageRoomReservation.html"><i class="fas fa-calendar-check"></i>Room Reservation</a>
+            <a class="navLink" href="AdminManageEquipment.html"><i class="fas fa-boxes"></i>Equipments</a>
+            <a class="navLink" href="AdminManageEquipmentReservation.html"><i class="fas fa-tools"></i>Equipment Reservation</a>
+            <a class="navLink" href="AdminManageSemester.html"><i class="fas fa-calendar-alt"></i>Semesters</a>
+            <a class="navLink" href="AdminManageSubject.html"><i class="fas fa-book"></i>Subjects</a>
+            <a class="navLink" href="AdminManageYearSection.html"><i class="fas fa-layer-group"></i>Year & Sections</a>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main id="main">
+        <div id="mainHeader">
+
+            <div class="mainHeaderLeft">
+                <button id="menuBtn2" class="menuBtn2">☰</button>
+                <h3 class="mainHeaderLeftTitle">AWE-PFRUMS</h3>
+            </div>
+
+            <div class="searchContainer">
+                <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+                <input id="searchInput" type="search" placeholder="Search...">
+            </div>
+
+            <div class="mainHeaderRight">
+                <button id="backButton" title="back to Previous Page"><i class="bi bi-arrow-left"></i></button>
+                <!-- Notification Button -->
+                <div class="notif-container" id="notif-bell">
+                    <i class="fas fa-bell"></i> <span id="notif-count" class="badge"></span>
+                </div>
+                <div id="notif-dropdown" class="dropdown hidden">
+                    <div class="dropdown-header">Notifications</div>
+                    <button class="markAllAsRead" onclick="markAllAsRead()">Mark all as read</button>
+                    <ul id="notif-list"></ul>
+                    <button class="viewAllNotif" onclick="window.location.href = 'AdminNotification.html';">View All Notifications</button>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-container">
+                    <div class="profile-avatar" id="profileAvatar">a</div>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-info">
+                            <div class="mini-profile-avatar" id="miniProfileAvatar">A</div>
+                            <div class="sub-profile-info">
+                                <div class="profile-name" id="profileName">Shernan  C. Iglesia</div>
+                                <div class="profile-role" id="profileRole">Admin</div>
+                            </div>
+                        </div>
+                        <a href="AdminChangePassword.html" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <button id="logoutBtn" 
+                            onclick="openConfirmModal('logout','Logout Account','Are you sure you want to logout? Once you logout you need to login again. Are you okay?','Logout')">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span id="logoutBtnText">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainContent">
+            <div class="mainContentHeader">
+                <p class="mainContentHeaderText">Schedule Management</p>
+                <button class="mainContentHeaderText" id="addButton">
+                    <i class="fa-solid fa-plus"></i> Add Schedule</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th id="firstColumn">Subject Code</th>
+                        <th>Instructor Name</th>
+                        <th>Year & Section</th>
+                        <th>Day/s</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="dataTableBody"></tbody>
+            </table>
+
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    Showing <span id="startIndex">0</span> to <span id="endIndex">0</span> of <span id="totalItems">0</span> rooms
+                </div>
+                <div class="pagination-controls" id="paginationControls">
+                </div>
+            </div>
+        </div>
+
+        <div id="scheduleModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeModal" class="modal-close-btn">&times;</span>
+                    <h3 id="modalTitle" class="modal-title">Add Schedule</h3>
+                </div>
+
+                <div class="modal-content-body">
+                    <form id="addScheduleForm">
+                        <label>Subject code</label>
+                        <select id="subject" class="input-field input-field-picker">
+                            <option value="">Select subject code</option>
+                        </select>
+                        <p id="formErrorSubjectCode" class="error-msg"></p>
+
+                        <label>Instructor</label>
+                        <select id="instructor" class="input-field input-field-picker">
+                            <option value="">Select instructor</option>
+                        </select>
+                        <p id="formErrorInstructor" class="error-msg"></p>
+
+                        <label>Year and Section</label>
+                        <select id="yearSection" class="input-field input-field-picker">
+                            <option value="">Select year and section</option>
+                        </select>
+                        <p id="formErrorYearSection" class="error-msg"></p>
+
+                        <label>Select Days</label>
+                        <div class="days" id="daysContainer"></div>
+                        <p id="formErrorDays" class="error-msg"></p>
+
+                        <label>Start Time</label>
+                        <input type="time" id="startTime" class="input-field">
+                        <p id="formErrorStartTime" class="error-msg"></p>
+
+                        <label>End Time</label>
+                        <input type="time" id="endTime" class="input-field">
+                        <p id="formErrorEndTime" class="error-msg"></p>
+                        
+                        <div class="modal-button-container">
+                            <button type="button" id="closeModal2" class="modal-btn" style="background-color: gray;">Cancel</button>
+                            <button type="submit" class="modal-btn" id="modalBtn">Add Schedule</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="feedbackContainer"></div>
+        <div id="confirmContainer"></div>
+    </main>
+    
+    <script src="../../js/Pages.js"></script>
+    <script src="../../js/API.js"></script>
+    <script src="../../js/FeedbackModal.js"></script>
+    <script src="../../js/ConfirmModal.js"></script>
+    <script src="../../js/SearchAndPagination.js"></script>
+    <script src="../../js/adminJs/AdminManageRoomSchedule.js"></script>
+    <script>
+        initUserProfile();
+        fetchNotifications();
+        displayNotifications();
+        fetchSchedules();
+    </script>
+</body>
+</html>

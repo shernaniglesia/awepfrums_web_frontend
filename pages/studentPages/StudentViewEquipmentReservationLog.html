@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipment Log | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/pages.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <style>
+        .firstColumn {
+            width: 80%;
+        }
+        @media (max-width: 768px) {
+            .firstColumn{
+                width: 100%;
+                word-wrap: break-word;
+            }
+
+            th:nth-child(2) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p id="loaderMessage" class="loader-message">Loading...</p>
+        </div>
+    </div>
+
+    <aside id="sidebar">
+        <nav>
+            <div class="navHeader">
+                <p class="navHeaderTitle">Student Panel</p>
+                <button id="menuBtn" class="menuBtn">☰</button>
+            </div>
+            <a class="navLink" href="StudentDashboard.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a class="navLink" href="StudentViewRoom.html"><i class="fas fa-door-open"></i>Rooms</a>
+            <a class="navLink" href="StudentViewEquipment.html"><i class="fas fa-boxes"></i>Equipments</a>
+            <a class="navLink" href="StudentViewEquipmentReservation.html"><i class="fas fa-tools"></i>Equipment Reservation</a>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main id="main">
+        <div id="mainHeader">
+
+            <div class="mainHeaderLeft">
+                <button id="menuBtn2" class="menuBtn2">☰</button>
+                <h3 class="mainHeaderLeftTitle">AWE-PFRUMS</h3>
+            </div>
+
+            <div class="searchContainer">
+                <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+                <input id="searchInput" type="search" placeholder="Search...">
+            </div>
+
+            <div class="mainHeaderRight">
+                <!-- Notification Button -->
+                <div class="notif-container" id="notif-bell">
+                    <i class="fas fa-bell"></i> <span id="notif-count" class="badge"></span>
+                </div>
+                <div id="notif-dropdown" class="dropdown hidden">
+                    <div class="dropdown-header">Notifications</div>
+                    <button class="markAllAsRead" onclick="markAllAsRead()">Mark all as read</button>
+                    <ul id="notif-list"></ul>
+                    <button class="viewAllNotif" onclick="window.location.href = 'StudentNotification.html';">View All Notifications</button>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-container">
+                    <div class="profile-avatar" id="profileAvatar">a</div>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-info">
+                            <div class="mini-profile-avatar" id="miniProfileAvatar">A</div>
+                            <div class="sub-profile-info">
+                                <div class="profile-name" id="profileName">Shernan  C. Iglesia</div>
+                                <div class="profile-role" id="profileRole">Admin</div>
+                            </div>
+                        </div>
+                        <a href="StudentChangePassword.html" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <button id="logoutBtn" 
+                            onclick="openConfirmModal('logout','Logout Account','Are you sure you want to logout? Once you logout you need to login again. Are you okay?','Logout')">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span id="logoutBtnText">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mainContent">
+            <div class="mainContentHeader">
+                <p class="mainContentHeaderText">Equipment Log</p>
+            </div>
+
+            <div class="sortContainer">
+                <select id="statusFilter">
+                    <option value="all">All status</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="declined">Declined</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="borrowed">Borrowed</option>
+                    <option value="returned">Returned</option>
+                </select>
+
+                <input type="date" id="dateFilter" />
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th class="firstColumn">Logs</th>
+                        <th class="secondColumn">Date</th>
+                    </tr>
+                </thead>
+
+                <tbody id="dataTableBody"></tbody>
+            </table>
+
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    Showing <span id="startIndex">0</span> to <span id="endIndex">0</span> of <span id="totalItems">0</span> equipment reservation logs
+                </div>
+                <div class="pagination-controls" id="paginationControls">
+                </div>
+            </div>
+        </div>
+
+        <div id="feedbackContainer"></div>
+        <div id="confirmContainer"></div>
+
+    </main>
+
+    <script src="../../js/Pages.js"></script>
+    <script src="../../js/API.js"></script>
+    <script src="../../js/FeedbackModal.js"></script>
+    <script src="../../js/ConfirmModal.js"></script>
+    <script src="../../js/SearchAndPagination.js"></script>
+    <script src="../../js/studentJs/StudentViewEquipmentReservationLog.js"></script>
+    <script>
+        setDefaultDate();
+        initUserProfile();
+        fetchNotifications();
+        displayNotifications();
+        fetchReservationLogs();
+    </script>
+</body>
+</html>

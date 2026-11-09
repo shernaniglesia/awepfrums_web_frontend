@@ -1,0 +1,130 @@
+.dashboardMainContent {
+    background: #f8fafc;
+    margin: 1.5rem;
+    border-radius: 6px;
+    backdrop-filter: blur(20px);
+}
+
+.dashboardGreetingContainer {
+    background: linear-gradient(180deg, var(--primary-blue) 0%, var(--sidebar-dark) 100%);
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 4px 0 20px rgba(30, 60, 114, 0.3);
+}
+
+.semesterInfoContainer {
+    background-color: #f2f2f2;
+    padding: .6rem 1rem;
+    border-radius: 6px;
+    max-width: max-content;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+#semesterInfoIcon {
+    color: var(--primary-blue);
+}
+
+#semesterInfo {
+    font-weight: 700;
+    color: var(--primary-blue);
+    padding-left: .5rem;
+    font-size: 1rem;
+}
+
+#dashboardGreetUser {
+    color: #f8fafc;
+    font-size: 2rem;
+    padding: .5rem 0;
+}
+
+.dashboardGreetingContainer p {
+    color: lightgray;
+    font-size: 1.125rem;
+    line-height: 1.6;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card {
+    background: var(--white);
+    padding: 1.5rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-top: 4px solid transparent;
+    position: relative;
+    overflow: hidden;
+    max-height: 12rem;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--primary-blue);
+    background-color: #e8ecf7;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+}
+
+.cardIcon {
+    font-size: 2rem;
+    border-radius: 50%;
+    padding: 1rem;
+    background-color: #b2c1e4;
+    color: var(--primary-blue);
+    border: 1px solid var(--primary-blue);
+}
+
+.cardNumber {
+    color: var(--primary-blue);
+    font-size: 1.7rem;
+    font-weight: 800;
+    margin: 0;
+    margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+    color: var(--dark-text);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.cardSubTitle {
+    color: var(--gray-text);
+    font-size: 0.90rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.5px;
+}
+
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    .header-right {
+        justify-content: flex-end;
+    }
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}

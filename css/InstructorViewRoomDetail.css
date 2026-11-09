@@ -1,0 +1,549 @@
+.miniBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: var(--light-bg);
+    border: 2px solid transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gray-text);
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+}
+
+.miniBtn:hover {
+    background: var(--primary-blue);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+}
+
+#createReservationBtn {
+    font-size: 1.5rem;
+}
+
+.viewRequestDropdown {  
+    background: rgba(255, 255, 255, 0.98);
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 550px;
+    max-height: 85vh;
+    border-radius: 8px;
+    padding-bottom: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.viewRequestDropdownHeader {
+    background-color: #1e3c72;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px 8px 0 0;
+    padding: .3rem 1rem;
+    color: #fff;
+}
+
+#closeViewRequestDropdown {
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    background: none;
+}
+
+.viewRequestDropdownTab {
+    border-bottom: 1px solid #e2e8f0;
+    padding-left: 1rem;
+}
+
+.viewRequestDropdownTabBtn {
+    background: none;
+    color: #64748b;
+    padding: .6rem 0;
+    width: 5rem;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+}
+.viewRequestDropdownTabBtn.active {
+    color: #1e3c72;
+    border-bottom: 3px solid #1e3c72;
+}
+
+.no-request {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #64748b;
+    font-size: 1rem;
+}
+
+.no-request i {
+    display: block;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #cbd5e1;
+}
+
+.viewRequestDropdownTr {
+    display: flex;
+    flex-direction: row;
+}
+
+.viewRequestDropdownTd {
+    width: 70%;
+    height: max-content;
+}
+
+.viewRequestDropdownTdAction {
+    width: 30%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+}
+
+.viewRequestDropdownBtn {
+    padding: .5rem;
+    font-size: .9rem;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.viewRequestDropdownBtn.red {
+    background: linear-gradient(135deg, #b91010, #960505);
+    color: white;
+    box-shadow: 0 6px 20px rgba(185, 16, 16, 0.3);
+}
+
+.viewRequestDropdownBtn.red:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(185, 16, 16, 0.4);
+}
+
+.viewRequestDropdownBtn.green {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.viewRequestDropdownBtn.green:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+}
+
+.viewRequestDropdownBtn.gray {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: white;
+    box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+}
+
+.viewRequestDropdownBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
+}
+
+.roomDetailContainer {
+    background: none;
+    height: calc(100vh - 70px);
+}
+
+.roomSemContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mainHeader-title,
+#semesterInfo {
+    color: #1e3c72;
+    padding: .4rem;
+    font-size: 1rem;
+}
+.weekNavigationContainer {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    padding: .3rem .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 20px;
+    margin: 0 0 .5rem 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+#weekRange {
+    color: var(--primary-blue);
+}
+
+.nav-button {
+    padding: 0.45rem .7rem;
+    background: linear-gradient(135deg, #ff6b35, #ff8c5a);
+    border: none;
+    color: white;
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
+}
+
+.timetableContainer {
+    flex: 1;
+    padding: 0 .5rem;
+    overflow: hidden;
+    height: 75vh;
+}
+
+.timetable {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    height: 100%;
+}
+
+.header-row {
+    display: flex;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: .2rem;
+}
+
+.header-cell {
+    flex: 1;
+    text-align: center;
+    padding: .2rem 0.1rem;
+    font-size: 0.70rem;
+    font-weight: 500;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.today {
+    background: linear-gradient(135deg, #fef3c7, #fde68a) !important;
+    color: #92400e !important;
+    box-shadow: inset 0 0 0 2px rgba(255, 193, 7, 0.3);
+    position: relative;
+}
+
+.day-column {
+    flex: 1;
+    position: relative;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.event {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0.1rem;
+    border-radius: 8px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    /* background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95)); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+}
+
+.event:hover {
+    transform: translateY(-4px) scale(1.02);
+    /* box-shadow: 0 12px 35px rgba(255, 107, 53, 0.3);
+    border-color: #ff6b35;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 1), rgba(255, 243, 199, 0.9)); */
+}
+
+.time-gutter {
+    width: 3.125rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.time-cell {
+    font-size: .63rem;
+    color: #6b7280;
+    height: 2.45rem;
+    text-align: right;
+    padding-right: 6px;
+}
+
+.row {
+    display: flex;
+    min-height: 3.125rem;
+}
+
+#evTitle {
+    font-size: .88rem;
+    color: #333;
+}
+
+#evInstructor {
+    font-size: .75rem;
+    color: #333;
+}
+
+/* Room Modal Design */
+.room-detail-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.room-detail-modal-box {
+    width: 330px;
+    border-radius: 12px;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transform: scale(0.8) translateY(20px);
+    animation: modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s both;
+    overflow-y: auto;
+}
+
+@keyframes modalSlideUp {
+    to { transform: scale(1) translateY(0); }
+}
+
+.room-detail-modal-box-header {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.room-detail-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e3c72;
+    text-align: center;
+}
+
+.room-detail-modal-close-btn {
+    background-color: #fff;
+    position: absolute;
+    right: 0;
+    top: -10px;
+    background: none;
+    padding: 0;
+    border: none;
+    outline: none;
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin: 0;
+    cursor: pointer;
+    color: #64748b;
+}
+
+#roomDetailModalContent {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    color: #333;
+    padding-top: 1rem;
+    border-bottom: 2px solid lightgray;
+    padding-bottom: 1rem;
+}
+
+.roomDetailModalContentRow {
+    display: flex;
+    justify-content: space-between;
+}
+
+.room-detail-modal-close-btn:hover {
+    color: #1e3c72;
+}
+
+.room-detail-modal-btn {
+    flex: 1;
+    padding: 12px 15px;
+    font-size: 14px;
+    margin: 5px;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.room-detail-modal-btn.red {
+    background: linear-gradient(135deg, #b91010, #960505);
+    color: white;
+    box-shadow: 0 6px 20px rgba(185, 16, 16, 0.3);
+}
+
+.room-detail-modal-btn.red:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(185, 16, 16, 0.4);
+}
+
+.room-detail-modal-btn.green {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.room-detail-modal-btn.green:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+}
+
+.room-detail-modal-btn.gray {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    color: white;
+    box-shadow: 0 4px 15px rgba(107, 114, 128, 0.3);
+}
+
+.room-detail-modal-btn.gray:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(107, 114, 128, 0.4);
+}
+
+.room-detail-modal-btn.blue {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    color: white;
+    box-shadow: 0 6px 20px rgba(16, 44, 185, 0.3);
+}
+
+.room-detail-modal-btn.blue:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(16, 16, 185, 0.4);
+}
+
+.room-detail-modal-btn.purple {
+    background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+    color: white;
+    box-shadow: 0 6px 20px rgba(129, 16, 185, 0.3);
+}
+
+.room-detail-modal-btn.purple:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(112, 16, 185, 0.4);
+}
+
+#swapModalContent1 {
+    line-height: 1.4rem; 
+    padding-bottom: .6rem;
+}
+
+.swapFilterContainer {
+    border-top: 2px solid lightgray; 
+    padding-top: .6rem;
+    border-bottom: 2px solid lightgray; 
+    padding-bottom: .225rem;
+}
+.swapFilterMiniContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: .5rem;
+}
+
+.swapModalContent1Row {
+    display: flex;
+    justify-content: space-between;
+}
+
+select {
+    font-size: .95rem;
+    background: var(--light-bg);
+    outline: none;
+    appearance: none;
+}
+
+.modal-scrollable-body {
+    overflow-y: auto;
+    flex-grow: 1; 
+    padding-right: 8px;
+    margin-top: 1rem;
+}
+
+#scheduleResultsContainer {
+    max-height: 200px; 
+    overflow-y: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px;
+    background-color: #f8fafc;
+}
+
+.modal-scrollable-body::-webkit-scrollbar,
+#scheduleResultsContainer::-webkit-scrollbar {
+    width: 6px;
+}
+.modal-scrollable-body::-webkit-scrollbar-thumb,
+#scheduleResultsContainer::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+    .weekNavigationContainer {
+        padding: .5rem .5rem;
+    }
+
+    .timetableContainer {
+        padding: 0;
+    }
+
+    #evTitle {
+        font-size: 8px;
+        color: #000;
+    }
+
+    #evInstructor {
+        font-size: 7px;
+        color: #000;
+    }
+}

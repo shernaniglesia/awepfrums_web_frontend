@@ -1,0 +1,23 @@
+:root {
+    --primary-blue: #1e3c72;
+    --secondary-blue: #2a5298;
+    --primary-orange: #ff6b35;
+    --orange-hover: #ff8c5a;
+    --sidebar-dark: #0f172a;
+    --light-bg: #f8fafc;
+    --white: #ffffff;
+    --dark-text: #1e293b;
+    --gray-text: #64748b;
+    --light-gray: #e2e8f0;
+    --border-gray: #e5e7eb;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --error: #ef4444;
+
+    --dark-brand-purple: #6D3E90; /*main navigation background*/
+    --rich-deep-purple:  #4B2564; /*sub-headings h2 and h3*/
+    --white: #ffffff;
+    --border-light-lavender: #C89DF1;
+
+
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/auth.css">
+    <style>
+        .password-checklist {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #666;
+            padding-left: 5px;
+        }
+        .requirement {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+            transition: color 0.2s ease;
+        }
+        .requirement i {
+            font-size: 0.75rem;
+        }
+        .requirement.valid {
+            color: #2e7d32;
+        }
+        .requirement.invalid {
+            color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p class="loader-message">Loading...</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="logo-header">
+            <h1 class="title">Create Account</h1>
+            <p class="subtitle">Join CIT AWE-based Physical Facilities and Resource Management System</p>
+        </div>
+
+        <form id="signupForm">
+            <div class="input-group">
+                <input type="text" id="name" placeholder=" " required>
+                <label for="name">Enter Your Full Name</label>
+                <div class="errorText" id="nameError"></div>
+            </div>
+
+            <div class="input-group">
+                <input type="email" id="email" placeholder=" " required>
+                <label for="email">Enter Email Address</label>
+                <div class="errorText" id="emailError"></div>
+            </div>
+
+            <div class="floating-group">
+                <select id="role" class="floating-select" onclick="this.setAttribute('value', this.value);" onchange="this.setAttribute('value', this.value);" value="" required>
+                    <option value="" hidden></option>
+                    <option value="student">Student</option>
+                </select>
+                <label class="floating-label">Role</label>
+                <div class="errorText" id="roleError"></div>
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="password" placeholder=" " required>
+                <i class="fas fa-eye toggle-password" data-target="password"></i>
+                <label for="password">Password</label>
+                <div class="errorText" id="passwordError"></div>
+                
+                <div class="password-checklist" id="passwordChecklist">
+                    <div class="requirement" id="reqLength"><i class="fas fa-circle"></i> Minimum 8 characters</div>
+                    <div class="requirement" id="reqUpper"><i class="fas fa-circle"></i> An uppercase letter</div>
+                    <div class="requirement" id="reqLower"><i class="fas fa-circle"></i> A lowercase letter</div>
+                    <div class="requirement" id="reqNum"><i class="fas fa-circle"></i> A number</div>
+                    <div class="requirement" id="reqSpecial"><i class="fas fa-circle"></i> A special character (@$!%*?&amp;)</div>
+                </div>
+            </div>
+
+            <button type="submit" id="signupBtn">
+                <span>
+                    <span class="btn-text">Create Account </span> 
+                    <span class="btn-icon" id="btnIcon"></span>
+                </span>
+            </button>
+
+            <div class="link">
+                Already have an account? 
+                <a href="Login.html" id="signinlink">Sign In</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="feedbackContainer"></div>
+
+    <script src="../../js/FeedbackModal.js"></script>
+    <script type="module" src="../../js/authJs/Signup.js"></script>
+</body>
+</html>

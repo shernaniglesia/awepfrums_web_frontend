@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Semester | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/pages.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/modal.css">
+    <style>
+        .firstColumn {
+          width: 20px;
+        }
+        th:nth-child(6) {
+            width: 100px;
+            text-align: center;
+        }
+        td:nth-child(5) {
+            padding: 0;
+        }
+        .lastColumn {
+            width: 100px;
+            text-align: center;
+            padding: 0;
+        }
+        .semBtn {
+            display:inline-block;
+            padding: 8px 15px;
+            border-radius:6px;
+            font-size: .8rem;
+            cursor: pointer;
+        }
+        .semActive {
+            background:green;
+            color:white;
+            border:1px solid #c6e6c1;
+            padding: 8px 23px;
+        }
+        .semSetActive {
+            background:#fff3cd;
+            color:#7d6000;
+            border:1px solid #f1e0a8;;
+        }
+        @media (max-width: 768px) {
+            th:nth-child(1), td:nth-child(1) { 
+                display: table-cell;
+                width: 40%;
+            }
+            th:nth-child(2), td:nth-child(2),
+            th:nth-child(3), td:nth-child(3),
+            th:nth-child(4), td:nth-child(4) {
+                display: none;
+            }
+
+            th:nth-child(6), td:nth-child(3) {
+                width: 30%;
+                display: table-cell !important;
+            }
+            th:nth-child(5), td:nth-child(2) {
+                width: 30%;
+                display: table-cell !important;
+            }
+            .data-cell {
+                white-space: normal;
+                line-height: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p id="loaderMessage" class="loader-message">Loading...</p>
+        </div>
+    </div>
+
+    <aside id="sidebar">
+        <nav>
+            <div class="navHeader">
+                <p class="navHeaderTitle">Admin Panel</p>
+                <button id="menuBtn" class="menuBtn">☰</button>
+            </div>
+            <a class="navLink" href="AdminDashboard.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a class="navLink" href="AdminManageUser.html"><i class="fas fa-users"></i>Users</a>
+            <a class="navLink" href="AdminManageRoom.html"><i class="fas fa-door-open"></i>Rooms</a>
+            <a class="navLink" href="AdminManageRoomReservation.html"><i class="fas fa-calendar-check"></i>Room Reservation</a>
+            <a class="navLink" href="AdminManageEquipment.html"><i class="fas fa-boxes"></i>Equipments</a>
+            <a class="navLink" href="AdminManageEquipmentReservation.html"><i class="fas fa-tools"></i>Equipment Reservation</a>
+            <a class="navLink active" href="AdminManageSemester.html"><i class="fas fa-calendar-alt"></i>Semesters</a>
+            <a class="navLink" href="AdminManageSubject.html"><i class="fas fa-book"></i>Subjects</a>
+            <a class="navLink" href="AdminManageYearSection.html"><i class="fas fa-layer-group"></i>Year & Sections</a>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main id="main">
+        <div id="mainHeader">
+
+            <div class="mainHeaderLeft">
+                <button id="menuBtn2" class="menuBtn2">☰</button>
+                <h3 class="mainHeaderLeftTitle">AWE-PFRUMS</h3>
+            </div>
+
+            <div class="searchContainer">
+                <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+                <input id="searchInput" type="search" placeholder="Search...">
+            </div>
+
+            <div class="mainHeaderRight">
+                <!-- Notification Button -->
+                <div class="notif-container" id="notif-bell">
+                    <i class="fas fa-bell"></i> <span id="notif-count" class="badge"></span>
+                </div>
+                <div id="notif-dropdown" class="dropdown hidden">
+                    <div class="dropdown-header">Notifications</div>
+                    <button class="markAllAsRead" onclick="markAllAsRead()">Mark all as read</button>
+                    <ul id="notif-list"></ul>
+                    <button class="viewAllNotif" onclick="window.location.href = 'AdminNotification.html';">View All Notifications</button>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-container">
+                    <div class="profile-avatar" id="profileAvatar">a</div>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-info">
+                            <div class="mini-profile-avatar" id="miniProfileAvatar">A</div>
+                            <div class="sub-profile-info">
+                                <div class="profile-name" id="profileName">Shernan  C. Iglesia</div>
+                                <div class="profile-role" id="profileRole">Admin</div>
+                            </div>
+                        </div>
+                        <a href="AdminChangePassword.html" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <button id="logoutBtn" 
+                            onclick="openConfirmModal('logout','Logout Account','Are you sure you want to logout? Once you logout you need to login again. Are you okay?','Logout')">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span id="logoutBtnText">Logout</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mainContent">
+            <div class="mainContentHeader">
+                <p class="mainContentHeaderText">Semester Management</p>
+                <button class="mainContentHeaderText" id="addButton">
+                    <i class="fa-solid fa-plus"></i> Add Semester</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Semester</th>
+                        <th>School Year</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="dataTableBody"></tbody>
+            </table>
+
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    Showing <span id="startIndex">0</span> to <span id="endIndex">0</span> of <span id="totalItems">0</span> semesters
+                </div>
+                <div class="pagination-controls" id="paginationControls">
+                </div>
+            </div>
+        </div>
+
+        <div id="semesterModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeModal" class="modal-close-btn">&times;</span>
+                    <h3 id="modalTitle" class="modal-title">Add Semester</h3>
+                </div>
+
+                <div class="modal-content-body">
+                    <form id="addSemesterForm">
+                        <label>Semester</label>
+                        <select id="semester" class="input-field input-field-picker">
+                            <option value="">Select semester</option>
+                            <option value="1st Semester">1st Semester</option>
+                            <option value="2nd Semester">2nd Semester</option>
+                            <option value="Summer">Summer</option>
+                        </select>
+                        <p id="formErrorSemester" class="error-msg"></p>
+
+                        <label>School Year</label>
+                        <input type="text" id="schoolYear" class="input-field" placeholder="2024-2025">
+                        <p id="formErrorSchoolYear" class="error-msg"></p>
+
+                        <label>Start Date</label>
+                        <input id="startDate" type="date" class="input-field">
+                        <p id="formErrorStartDate" class="error-msg"></p>
+
+                        <label>End Date</label>
+                        <input id="endDate" type="date" class="input-field">
+                        <p id="formErrorEndDate" class="error-msg"></p>
+
+                        <div class="modal-button-container">
+                            <button type="button" id="closeModal2" class="modal-btn" style="background-color: gray;">Cancel</button>
+                            <button type="submit" class="modal-btn" id="modalBtn">
+                            <span class="btn-text">Add Semester</span>
+                        </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="feedbackContainer"></div>
+        <div id="confirmContainer"></div>
+    </main>
+    
+    <script src="../../js/Pages.js"></script>
+    <script src="../../js/API.js"></script>
+    <script src="../../js/FeedbackModal.js"></script>
+    <script src="../../js/ConfirmModal.js"></script>
+    <script src="../../js/SearchAndPagination.js"></script>
+    <script src="../../js/adminJs/AdminManageSemester.js"></script>
+    <script>
+        initUserProfile();
+        displayNotifications();
+        fetchNotifications();
+        fetchSemesters();
+    </script>
+</body>
+</html>

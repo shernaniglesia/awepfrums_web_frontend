@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Detail | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/pages.css">
+    <link rel="stylesheet" href="../../css/table.css">
+    <link rel="stylesheet" href="../../css/modal.css">
+    <link rel="stylesheet" href="../../css/InstructorViewRoomDetail.css">
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p id="loaderMessage" class="loader-message">Loading...</p>
+        </div>
+    </div>
+
+    <aside id="sidebar">
+        <nav>
+            <div class="navHeader">
+                <p class="navHeaderTitle">Instructor Panel</p>
+                <button id="menuBtn" class="menuBtn">☰</button>
+            </div>
+            <a class="navLink" href="InstructorDashboard.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a class="navLink" href="InstructorViewRoom.html"><i class="fas fa-door-open"></i>Rooms</a>
+            <a class="navLink" href="InstructorViewRoomReservation.html"><i class="fas fa-calendar-check"></i>Room Reservation</a>
+            <a class="navLink" href="InstructorViewEquipment.html"><i class="fas fa-boxes"></i>Equipments</a>
+            <a class="navLink" href="InstructorViewEquipmentReservation.html"><i class="fas fa-tools"></i>Equipment Reservation</a>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main id="main">
+        <div id="mainHeader">
+
+            <div class="mainHeaderLeft">
+                <button id="menuBtn2" class="menuBtn2">☰</button>
+                <h3 class="mainHeaderLeftTitle">AWE-PFRUMS</h3>
+            </div>
+
+            <div class="searchContainer" style="display: none;">
+                <i class="fa-solid fa-magnifying-glass" id="searchIcon"></i>
+                <input id="searchInput" type="search" placeholder="Search...">
+            </div>
+
+            <div class="mainHeaderRight">
+                <!-- View Request Button -->
+                <button id="viewRequestBtn" class="miniBtn"><i class="fas fa-calendar-check"></i></button>
+                <div id="viewRequestDropdown" class="viewRequestDropdown hidden">
+                    <div class="viewRequestDropdownHeader">View Request<span id="closeViewRequestDropdown">&times;</span></div>
+                    <div class="viewRequestDropdownTab">
+                        <button id="receivedBtn" class="viewRequestDropdownTabBtn active">Received</button>
+                        <button id="sentBtn" class="viewRequestDropdownTabBtn">Sent</button>
+                    </div>
+                    <table>
+                        <tbody id="viewRequestDataTableBody"></tbody>
+                    </table>
+                </div>
+                
+                <!-- Create Reservation Button -->
+                <button id="createReservationBtn" class="miniBtn"><i class="fas fa-plus"></i></button>
+
+                <!-- Notification Button -->
+                <div class="notif-container" id="notif-bell">
+                    <i class="fas fa-bell"></i> <span id="notif-count" class="badge"></span>
+                </div>
+
+                <div id="notif-dropdown" class="dropdown hidden">
+                    <div class="dropdown-header">Notifications</div>
+                    <button class="markAllAsRead" onclick="markAllAsRead()">Mark all as read</button>
+                    <ul id="notif-list"></ul>
+                    <button class="viewAllNotif" onclick="window.location.href = 'InstructorNotification.html';">View All Notifications</button>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-container">
+                    <div class="profile-avatar" id="profileAvatar">a</div>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-info">
+                            <div class="mini-profile-avatar" id="miniProfileAvatar">A</div>
+                            <div class="sub-profile-info">
+                                <div class="profile-name" id="profileName">Shernan  C. Iglesia</div>
+                                <div class="profile-role" id="profileRole">Admin</div>
+                            </div>
+                        </div>
+                        <a href="InstructorChangePassword.html" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <button id="logoutBtn" 
+                            onclick="openConfirmModal('logout','Logout Account','Are you sure you want to logout? Once you logout you need to login again. Are you okay?','Logout')">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span id="logoutBtnText">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="roomDetailContainer">
+            <div class="roomSemContainer">
+                <h4 id="mainHeader-title">Room Assignment</h4>
+                <h4 id="semesterInfo"></h4>
+            </div>
+            
+            <div class="weekNavigationContainer">
+                <button id="prevBtn" class="nav-button">
+                    <i class="bi bi-chevron-left"></i>
+                    Previous
+                </button>
+                <p class="week-range" id="weekRange">Loading...</p>
+                <button id="nextBtn" class="nav-button">
+                    Next
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+
+            <div class="timetableContainer">
+                <div id="timetable" class="timetable"></div>
+            </div>
+        </div>
+
+        <div id="roomDetailModal" class="room-detail-modal-overlay">
+            <div class="room-detail-modal-box">
+                <div class="room-detail-modal-box-header">
+                    <button id="roomDetailCloseModalButton" onclick="closeModal()" class="room-detail-modal-close-btn">&times;</button>
+                </div>
+                <div class="room-detail-modal-title" id="roomDetailModalTitle"></div>
+                <div id="roomDetailModalContent"></div>
+                <div style="display:flex; margin-top:1rem;" id="roomDetailModalActions"></div>
+            </div>
+        </div>
+
+        <div id="reserveRoomModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeReserveModal" class="modal-close-btn">&times;</span>
+                    <h3 id="modalTitle" class="modal-title">Reserve Room</h3>
+                </div>
+
+                <div class="modal-content-body">
+                    <form id="reserveRoomForm">
+                        <label>Room name</label>
+                        <input type="text" id="reserveRoom" class="input-field" disabled>
+                        <p id="formErrorReserveRoomName" class="error-msg"></p>
+
+                        <label>Subject code</label>
+                        <select id="reserveSubject" class="input-field input-field-picker">
+                            <option value="">Select subject code</option>
+                        </select>
+                        <p id="formErrorReserveSubjectCode" class="error-msg"></p>
+
+                        <label>Year and Section</label>
+                        <select id="reserveYearSection" class="input-field input-field-picker">
+                            <option value="">Select year and section</option>
+                        </select>
+                        <p id="formErrorReserveYearSection" class="error-msg"></p>
+
+                        <label>Date</label>
+                        <input id="reserveDate" type="date" class="input-field">
+                        <p id="formErrorReserveDate" class="error-msg"></p>
+
+                        <label>Start Time</label>
+                        <input type="time" id="reserveStartTime" class="input-field">
+                        <p id="formErrorReserveStartTime" class="error-msg"></p>
+
+                        <label>End Time</label>
+                        <input type="time" id="reserveEndTime" class="input-field">
+                        <p id="formErrorReserveEndTime" class="error-msg"></p>
+                        
+                        <div class="modal-button-container">
+                            <button type="button" id="closeReserveModal2" class="modal-btn" style="background-color: gray;">Cancel</button>
+                            <button type="submit" class="modal-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="giveScheduleModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeGiveScheduleModal" class="modal-close-btn">&times;</span>
+                    <h3 class="modal-title">Give this schedule to?</h3>
+                </div>
+
+                <div class="modal-content-body">
+                    <form id="giveScheduleForm">
+                        <label>Instructor</label>
+                        <select id="giveInstructor" class="input-field input-field-picker">
+                            <option value="">Select instructor</option>
+                        </select>
+                        <p id="formErrorGiveInstructor" class="error-msg"></p>
+
+                        <div class="modal-button-container">
+                            <button type="button" id="closeGiveScheduleModal2" class="modal-btn" style="background-color: gray;">Cancel</button>
+                            <button type="submit" class="modal-btn">Give</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="getScheduleModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeGetScheduleModal" class="modal-close-btn">&times;</span>
+                    <h3 class="modal-title">Request to get this schedule</h3>
+                </div>
+
+                <div class="modal-content-body">
+                    <form id="getScheduleForm">
+                        <label>Subject code</label>
+                        <select id="getSubject" class="input-field input-field-picker">
+                            <option value="">Select subject code</option>
+                        </select>
+                        <p id="formErrorGetSubjectCode" class="error-msg"></p>
+
+                        <label>Year and Section</label>
+                        <select id="getYearSection" class="input-field input-field-picker">
+                            <option value="">Select year and section</option>
+                        </select>
+                        <p id="formErrorGetYearSection" class="error-msg"></p>
+
+                        <div class="modal-button-container">
+                            <button type="button" id="closeGetScheduleModal2" class="modal-btn" style="background-color: gray;">Cancel</button>
+                            <button type="submit" class="modal-btn">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="approveGiveScheduleModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span id="closeApproveGiveScheduleModal" class="modal-close-btn">&times;</span>
+                    <h3 class="modal-title">Fill up this form to receive the room.</h3>
+                </div>
+
+                <div class="modal-content-body">
+                    <form id="approveGiveScheduleForm">
+                        <label>Subject code</label>
+                        <select id="approveSubject" class="input-field input-field-picker">
+                            <option value="">Select subject code</option>
+                        </select>
+                        <p id="formErrorApproveSubjectCode" class="error-msg"></p>
+
+                        <label>Year and Section</label>
+                        <select id="approveYearSection" class="input-field input-field-picker">
+                            <option value="">Select year and section</option>
+                        </select>
+                        <p id="formErrorApproveYearSection" class="error-msg"></p>
+
+                        <div class="modal-button-container">
+                            <button type="button" id="closeApproveGiveScheduleModal2" class="modal-btn" style="background-color: gray;">Cancel</button>
+                            <button type="submit" class="modal-btn">Submit Request</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="swapModal" class="custom-modal">
+            <div class="modal-content">
+                <div class="modal-header" style="padding-bottom: 0.6rem; margin-bottom: .4rem;">
+                    <span id="closeSwapModal" class="modal-close-btn">&times;</span>
+                    <h3 class="modal-title">Swap Schedules</h3>
+                </div>
+                
+                <div class="modal-content-body">
+                    <div id="swapModalContent1"></div>
+                    <div class="swapFilterContainer">
+                        
+                        <div class="swapFilterMiniContainer">
+                            <p>Filter by room:</p>
+                            <select id="swapRoomFilter" style="width: 50%; padding: 6px;">
+                                <option value="">Select Room</option>
+                            </select>
+                        </div>
+
+                        <div class="swapFilterMiniContainer">
+                            <p>Filter by instructor:</p>
+                            <select id="swapInstructorFilter" style="width: 50%; padding: 6px;">
+                                <option value="">Select Instructor</option>
+                            </select>
+                        </div>
+
+                        <div class="swapFilterMiniContainer">
+                            <p>Date selection:</p>
+                            <select id="swapDateFilter" style="width: 50%; padding: 6px;">
+                                <option value="">Select Date</option>
+                            </select>
+                        </div>
+
+                        <div class="swapFilterMiniContainer">
+                            <p>Start Time:</p>
+                            <select id="swapTimeFilter" style="width: 50%; padding: 6px;">
+                                <option value="">Select Time</option>
+                            </select>
+                        </div>
+                    </div>
+                     <p style="padding-top: .6rem;"><strong>Available slots:</strong></p>
+                </div>
+
+                <div class="modal-scrollable-body">
+                    <div id="scheduleResultsContainer" class="schedule-grid"></div>
+                </div> 
+            </div>
+        </div>
+
+
+        <div id="feedbackContainer"></div>
+        <div id="confirmContainer"></div>
+
+    </main>
+
+    <script src="../../js/Pages.js"></script>
+    <script src="../../js/API.js"></script>
+    <script src="../../js/FeedbackModal.js"></script>
+    <script src="../../js/ConfirmModal.js"></script>
+    <script src="../../js/SearchAndPagination.js"></script>
+    <script src="../../js/instructorJs/InstructorViewRoomDetail.js"></script>
+    <script>
+        initUserProfile();
+        fetchNotifications();
+        displayNotifications();
+        fetchTimetable();
+    </script>
+</body>
+</html>

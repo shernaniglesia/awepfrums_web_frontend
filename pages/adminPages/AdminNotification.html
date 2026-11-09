@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification | AWEPFRUMS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/pages.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <style>
+        .notificationContainer {
+            display: flex;
+            justify-content: center;
+            height: calc(100vh - 70px);
+        }
+        .notificationContent {
+            width: 100%;
+            max-width: 800px;
+            padding: 1.5rem;
+        }
+        .notificationContentHeader {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 1rem;
+            position: relative;
+            color: #1e3c72;
+        }
+        .notificationContentHeader h2 {
+            padding-bottom: .3rem; 
+            font-size: 1.5rem;
+        }
+        .threedotbtn {
+            padding: 0.4rem .8rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: white;
+            cursor: pointer;
+            color: #64748b;
+            border: 1px solid #64748b;
+        }
+        .threedotbtn:hover {
+            border-color: #1e3c72;
+            color: #1e3c72;
+        }
+
+        .threedotbtndropdown {
+            position: absolute;
+            right: 0;
+            top: 55px;
+            width: 150px;
+            background: white;
+            border: 1px solid #ccc;
+            color: #1e293b;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        .threedotbtndropdownbtn {
+            padding: .9rem 0 .9rem .5rem;
+            width: 100%;
+            text-align: start;
+            font-size: .90rem;
+            border: none;
+            background-color: white;
+            cursor: pointer;
+        }
+        .threedotbtndropdownbtn:hover {
+            background: #f9f9f9;
+        }
+
+        .no-notifications {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #64748b;
+            font-size: 1rem;
+        }
+        
+        .no-notifications i {
+            display: block;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #cbd5e1;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 0 0;
+            max-height: 86%;
+            overflow-y: auto;
+            background-color: white;
+            color: #1e293b;
+            border-radius: 6px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #nList {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li.unread {
+            background: #f0f7ff;
+            border-left: 4px solid #007bff;
+        }
+
+        li:hover {
+            background: #f9f9f9;
+        }
+
+        .notification-data {
+            display: flex;
+            flex-direction: column;
+            gap: .3rem;
+        }
+        
+        .all-notif-time {
+            text-align: start;
+            font-size: .8rem;
+            color: gray;
+        }
+
+        .notif-trash-icon {
+            color: grey;
+            padding: .5rem .7rem;
+            border-radius: 6px;
+            margin-left: .5rem;
+        }
+        .notif-trash-icon:hover {
+            color: #ef4444;
+            border: .5px solid #ef4444;
+        }
+        @media (max-width: 768px) {
+            .notificationContent {
+                width: 100%;
+                max-width: 800px;
+                padding: 0;
+            }
+            .notificationContentHeader {
+                padding: 1rem 1rem 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loaderDisplay" class="loader-overlay">
+        <div class="loader-container">
+            <div class="loader"></div>
+            <p id="loaderMessage" class="loader-message">Loading...</p>
+        </div>
+    </div>
+    <aside id="sidebar">
+        <nav>
+            <div class="navHeader">
+                <p class="navHeaderTitle">Admin Panel</p>
+                <button id="menuBtn" class="menuBtn">☰</button>
+            </div>
+            <a class="navLink" href="AdminDashboard.html"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+            <a class="navLink" href="AdminManageUser.html"><i class="fas fa-users"></i>Users</a>
+            <a class="navLink" href="AdminManageRoom.html"><i class="fas fa-door-open"></i>Rooms</a>
+            <a class="navLink" href="AdminManageRoomReservation.html"><i class="fas fa-calendar-check"></i>Room Reservation</a>
+            <a class="navLink" href="AdminManageEquipment.html"><i class="fas fa-boxes"></i>Equipments</a>
+            <a class="navLink" href="AdminManageEquipmentReservation.html"><i class="fas fa-tools"></i>Equipment Reservation</a>
+            <a class="navLink" href="AdminManageSemester.html"><i class="fas fa-calendar-alt"></i>Semesters</a>
+            <a class="navLink" href="AdminManageSubject.html"><i class="fas fa-book"></i>Subjects</a>
+            <a class="navLink" href="AdminManageYearSection.html"><i class="fas fa-layer-group"></i>Year & Sections</a>
+        </nav>
+    </aside>
+
+    <div id="overlay" class="overlay"></div>
+
+    <main id="main">
+        <div id="mainHeader">
+
+            <div class="mainHeaderLeft">
+                <button id="menuBtn2" class="menuBtn2">☰</button>
+                <h3 class="mainHeaderLeftTitle">AWE-PFRUMS</h3>
+            </div>
+
+            <div class="mainHeaderRight">
+                <!-- Notification Button -->
+                <div class="notif-container" id="notif-bell">
+                    <i class="fas fa-bell"></i> <span id="notif-count" class="badge"></span>
+                </div>
+                <div id="notif-dropdown" class="dropdown hidden">
+                    <div class="dropdown-header">Notifications</div>
+                    <button class="markAllAsRead" onclick="markAllAsRead()">Mark all as read</button>
+                    <ul id="notif-list"></ul>
+                    <button class="viewAllNotif" onclick="window.location.href = 'AdminNotification.html';">View All Notifications</button>
+                </div>
+
+                <!-- Profile Dropdown -->
+                <div class="profile-container">
+                    <div class="profile-avatar" id="profileAvatar">a</div>
+
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <div class="profile-info">
+                            <div class="mini-profile-avatar" id="miniProfileAvatar">A</div>
+                            <div class="sub-profile-info">
+                                <div class="profile-name" id="profileName">Shernan  C. Iglesia</div>
+                                <div class="profile-role" id="profileRole">Admin</div>
+                            </div>
+                        </div>
+                        <a href="AdminChangePassword.html" class="dropdown-item">
+                            <i class="fas fa-key"></i>
+                            Change Password
+                        </a>
+                        <button id="logoutBtn" 
+                            onclick="openConfirmModal('logout','Logout Account','Are you sure you want to logout? Once you logout you need to login again. Are you okay?','Logout')">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span id="logoutBtnText">Logout</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notificationContainer">
+            <div class="notificationContent">
+                <div class="notificationContentHeader">
+                    <div>
+                        <h2>Notifications</h2>
+                        <p>Stay updated with system alerts.</p>
+                    </div>
+                    <button class="threedotbtn" id="threedotbtn"><i class="fas fa-ellipsis-v"></i></button>
+                    <div id="threedotbtndropdown" class="threedotbtndropdown hidden">
+                        <button onclick="notificationMarkAllAsRead()" class="threedotbtndropdownbtn" style="border-bottom: 1px solid lightgrey;">Mark all as read</button>
+                        <button onclick="markAllAsClearFunction()"class="threedotbtndropdownbtn">Clear all noifications</button>
+                    </div>
+                </div>
+
+                <ul id="all-notif-list"></ul>
+
+            </div>
+        </div>
+    </main>
+
+    <div id="confirmContainer"></div>
+
+    <script src="../../js/Pages.js"></script>
+    <script src="../../js/API.js"></script>
+    <script src="../../js/ConfirmModal.js"></script>
+    <script src="../../js/adminJs/AdminNotification.js"></script>
+    <script>
+        initUserProfile();
+        fetchNotifications();
+        displayNotifications();
+        renderAllNotifications();
+    </script>
+</body>
+</html>
